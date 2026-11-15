@@ -1,0 +1,196 @@
+[gd_scene format=3 uid="uid://c0a3eeoeo7hj7"]
+
+[ext_resource type="Script" uid="uid://dbmfev8bhoml4" path="res://game/level_2.gd" id="1_y1lo0"]
+[ext_resource type="TileSet" uid="uid://cfsdungtiles1" path="res://game/art/dungeon_tiles.tres" id="2_2opr0"]
+[ext_resource type="AudioStream" uid="uid://ql3r01txoeee" path="res://game/audio/level2.mp3" id="2_7y100"]
+[ext_resource type="Script" uid="uid://b8c2kpgpio3tx" path="res://game/ground2.gd" id="3_hl0le"]
+[ext_resource type="PackedScene" uid="uid://c6n0cjm5n5lh0" path="res://game/obstacle.tscn" id="5_2opr0"]
+[ext_resource type="Texture2D" uid="uid://be8huc5s4qcau" path="res://game/art/wall_banner_red.png" id="5_wa30d"]
+[ext_resource type="Texture2D" uid="uid://d1ouy2wenwxoc" path="res://game/art/wall_banner_blue.png" id="6_jaeml"]
+[ext_resource type="Texture2D" uid="uid://btrs7hgafuusc" path="res://game/art/crate.png" id="7_xkrqb"]
+[ext_resource type="Script" uid="uid://dsyrv8slaqoi7" path="res://game/player.gd" id="8_p4scb"]
+[ext_resource type="SpriteFrames" uid="uid://cfsplayerfrm1" path="res://game/art/player_frames.tres" id="9_j78k6"]
+[ext_resource type="Script" uid="uid://db3a1whcnqh7u" path="res://scripts/controller/top_down_mover_lite.gd" id="10_oerhy"]
+[ext_resource type="Script" uid="uid://bfyys4hat6sny" path="res://scripts/combat/hurtbox.gd" id="11_nuwyu"]
+[ext_resource type="Script" uid="uid://l5fnpbcbnesv" path="res://scripts/combat/health.gd" id="12_aw7nj"]
+[ext_resource type="SpriteFrames" uid="uid://cfsgoblinfrm1" path="res://game/art/goblin_frames.tres" id="13_u2kgf"]
+[ext_resource type="Script" uid="uid://biocc0xmhwhf2" path="res://scripts/combat/hitbox.gd" id="14_isfwj"]
+[ext_resource type="Script" uid="uid://b57ilrp6gvpb4" path="res://scripts/enemy_ai/brain.gd" id="15_13i5u"]
+[ext_resource type="SpriteFrames" uid="uid://cfsskeletfrm1" path="res://game/art/skeleton_frames.tres" id="16_jlf0e"]
+[ext_resource type="PackedScene" uid="uid://btidvba4euvm8" path="res://game/pause_menu.tscn" id="17_7g60n"]
+[ext_resource type="Script" uid="uid://c5c445rrlnj3y" path="res://scripts/scene_flow/spawn_point.gd" id="17_7y100"]
+[ext_resource type="Script" uid="uid://c4nogbjped6x8" path="res://game/level_manager_2.gd" id="17_y1lo0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mj0fl"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qnaoe"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_naw2d"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rqpb2"]
+
+[node name="level2" type="Node2D" unique_id=1312160868]
+script = ExtResource("1_y1lo0")
+level_music = ExtResource("2_7y100")
+
+[node name="Ground" type="TileMapLayer" parent="." unique_id=659873242]
+tile_set = ExtResource("2_2opr0")
+script = ExtResource("3_hl0le")
+obstacle_scene = ExtResource("5_2opr0")
+
+[node name="Deco" type="Node2D" parent="." unique_id=948864152]
+
+[node name="BannerRed" type="Sprite2D" parent="Deco" unique_id=326246398]
+position = Vector2(632, 200)
+texture = ExtResource("5_wa30d")
+
+[node name="BannerBlue" type="Sprite2D" parent="Deco" unique_id=639834927]
+position = Vector2(775, 199)
+texture = ExtResource("6_jaeml")
+
+[node name="Crate1" type="Sprite2D" parent="Deco" unique_id=1382147285]
+position = Vector2(288, 232)
+texture = ExtResource("7_xkrqb")
+
+[node name="Crate2" type="Sprite2D" parent="Deco" unique_id=2101801383]
+position = Vector2(1120, 232)
+texture = ExtResource("7_xkrqb")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1097960655]
+position = Vector2(475, 358)
+script = ExtResource("8_p4scb")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Player" unique_id=1964249295]
+sprite_frames = ExtResource("9_j78k6")
+animation = &"run"
+autoplay = "idle"
+frame_progress = 0.30521056
+offset = Vector2(0, -2)
+
+[node name="Col" type="CollisionShape2D" parent="Player" unique_id=522878337]
+shape = SubResource("CircleShape2D_mj0fl")
+
+[node name="Mover" type="Node" parent="Player" unique_id=494918067]
+script = ExtResource("10_oerhy")
+speed = 150.0
+save_id = "player"
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1352999060]
+zoom = Vector2(3, 3)
+
+[node name="HurtboxLite" type="Area2D" parent="Player" unique_id=630518631]
+collision_layer = 2
+script = ExtResource("11_nuwyu")
+health_path = NodePath("../HealthLite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/HurtboxLite" unique_id=1932229371]
+shape = SubResource("CircleShape2D_qnaoe")
+
+[node name="HealthLite" type="Node" parent="Player" unique_id=270115265]
+script = ExtResource("12_aw7nj")
+max_health = 1.0
+
+[node name="enemy" type="CharacterBody2D" parent="." unique_id=1215222659]
+position = Vector2(361, 499)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="enemy" unique_id=1019109926]
+sprite_frames = ExtResource("13_u2kgf")
+animation = &"idle"
+frame_progress = 0.921248
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy" unique_id=649375855]
+position = Vector2(1, 2)
+shape = SubResource("CircleShape2D_naw2d")
+
+[node name="HitboxLite" type="Area2D" parent="enemy" unique_id=1252106672]
+position = Vector2(1, 2)
+collision_mask = 2
+script = ExtResource("14_isfwj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy/HitboxLite" unique_id=168052144]
+shape = SubResource("CircleShape2D_rqpb2")
+disabled = true
+
+[node name="EnemyBrainLite" type="Node" parent="enemy" unique_id=682869345]
+script = ExtResource("15_13i5u")
+move_speed = 70.0
+attack_radius = 15.0
+metadata/_custom_type_script = "uid://b57ilrp6gvpb4"
+
+[node name="enemy3" type="CharacterBody2D" parent="." unique_id=271599413]
+position = Vector2(252, 448)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="enemy3" unique_id=1590389548]
+sprite_frames = ExtResource("16_jlf0e")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy3" unique_id=661978308]
+position = Vector2(1, 2)
+shape = SubResource("CircleShape2D_naw2d")
+
+[node name="HitboxLite" type="Area2D" parent="enemy3" unique_id=1358684033]
+position = Vector2(1, 2)
+collision_mask = 2
+script = ExtResource("14_isfwj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy3/HitboxLite" unique_id=723651313]
+shape = SubResource("CircleShape2D_rqpb2")
+
+[node name="EnemyBrainLite" type="Node" parent="enemy3" unique_id=1293044116]
+script = ExtResource("15_13i5u")
+move_speed = 70.0
+attack_radius = 15.0
+metadata/_custom_type_script = "uid://b57ilrp6gvpb4"
+
+[node name="enemy2" type="CharacterBody2D" parent="." unique_id=549606817]
+position = Vector2(252, 334)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="enemy2" unique_id=127423853]
+sprite_frames = ExtResource("13_u2kgf")
+animation = &"idle"
+frame_progress = 0.921248
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy2" unique_id=115586995]
+position = Vector2(1, 2)
+shape = SubResource("CircleShape2D_naw2d")
+
+[node name="HitboxLite" type="Area2D" parent="enemy2" unique_id=672238610]
+position = Vector2(1, 2)
+collision_mask = 2
+script = ExtResource("14_isfwj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy2/HitboxLite" unique_id=142819045]
+shape = SubResource("CircleShape2D_rqpb2")
+
+[node name="EnemyBrainLite" type="Node" parent="enemy2" unique_id=1924198376]
+script = ExtResource("15_13i5u")
+move_speed = 70.0
+attack_radius = 15.0
+metadata/_custom_type_script = "uid://b57ilrp6gvpb4"
+
+[node name="PauseCanvas" type="CanvasLayer" parent="." unique_id=1149799931]
+
+[node name="PauseMenu" parent="PauseCanvas" unique_id=828480521 instance=ExtResource("17_7g60n")]
+visible = false
+
+[node name="SurvivalTimer" type="Label" parent="PauseCanvas" unique_id=2061330676]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "90"
+
+[node name="LevelManager2" type="Node" parent="." unique_id=1737381215]
+script = ExtResource("17_y1lo0")
+
+[node name="scene_spawn" type="Marker2D" parent="." unique_id=2111410]
+position = Vector2(472, 357)
+script = ExtResource("17_7y100")
+metadata/_custom_type_script = "uid://c5c445rrlnj3y"
+
+[connection signal="died" from="Player/HealthLite" to="Player" method="_on_health_lite_died"]

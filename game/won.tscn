@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://dbx8ta3sg1jcm"]
+
+[ext_resource type="Script" uid="uid://dusc3mgrsoycm" path="res://won.gd" id="1_nssd2"]
+[ext_resource type="Texture2D" uid="uid://cactw0jkry5kx" path="res://game/art/images.jpg" id="2_1gyb4"]
+
+[node name="Won" type="Control" unique_id=687890203]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nssd2")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1670207894]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.03137255, 0.043137256, 0.14509805, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1675941077]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=2063595363]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VBoxContainer" unique_id=51474962]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+texture = ExtResource("2_1gyb4")
+expand_mode = 2
+
+[node name="Restart" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1892334631]
+layout_mode = 2
+text = "Restart"
+
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer" unique_id=848474388]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

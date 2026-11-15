@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://cfsworld0001"]
+
+[ext_resource type="Script" uid="uid://dsyrv8slaqoi7" path="res://game/player.gd" id="1"]
+[ext_resource type="Script" uid="uid://ditefjdkgqr5l" path="res://game/level1.gd" id="1_26k6w"]
+[ext_resource type="AudioStream" uid="uid://cvxejlj6nbnxh" path="res://game/audio/level1.mp3" id="2_balas"]
+[ext_resource type="Script" uid="uid://ds556mawc8q0p" path="res://game/floor_builder.gd" id="6"]
+[ext_resource type="TileSet" uid="uid://cfsdungtiles1" path="res://game/art/dungeon_tiles.tres" id="7"]
+[ext_resource type="PackedScene" uid="uid://clue78gjevnxv" path="res://game/herb_1.tscn" id="7_naw2d"]
+[ext_resource type="SpriteFrames" uid="uid://cfsplayerfrm1" path="res://game/art/player_frames.tres" id="8"]
+[ext_resource type="Texture2D" uid="uid://btrs7hgafuusc" path="res://game/art/crate.png" id="11"]
+[ext_resource type="Texture2D" uid="uid://be8huc5s4qcau" path="res://game/art/wall_banner_red.png" id="12"]
+[ext_resource type="Script" uid="uid://l5fnpbcbnesv" path="res://scripts/combat/health.gd" id="12_mj0fl"]
+[ext_resource type="Texture2D" uid="uid://d1ouy2wenwxoc" path="res://game/art/wall_banner_blue.png" id="13"]
+[ext_resource type="Script" uid="uid://db3a1whcnqh7u" path="res://scripts/controller/top_down_mover_lite.gd" id="14"]
+[ext_resource type="Script" uid="uid://bfyys4hat6sny" path="res://scripts/combat/hurtbox.gd" id="15_y4mp7"]
+[ext_resource type="SpriteFrames" uid="uid://cfsgoblinfrm1" path="res://game/art/goblin_frames.tres" id="17_naw2d"]
+[ext_resource type="Script" uid="uid://b57ilrp6gvpb4" path="res://scripts/enemy_ai/brain.gd" id="18_mj0fl"]
+[ext_resource type="PackedScene" uid="uid://dli3jtsfu1ed3" path="res://game/scene_door_lite.tscn" id="18_naw2d"]
+[ext_resource type="Script" uid="uid://baknjxkvfut2" path="res://game/level_manager.gd" id="18_y4mp7"]
+[ext_resource type="PackedScene" uid="uid://dpn4gfj5nrifp" path="res://game/popup.tscn" id="19_mj0fl"]
+[ext_resource type="Script" uid="uid://biocc0xmhwhf2" path="res://scripts/combat/hitbox.gd" id="20_26k6w"]
+[ext_resource type="PackedScene" uid="uid://btidvba4euvm8" path="res://game/pause_menu.tscn" id="20_y4mp7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mj0fl"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qnaoe"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_naw2d"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rqpb2"]
+
+[node name="Level1" type="Node2D" unique_id=1312160868]
+script = ExtResource("1_26k6w")
+level_music = ExtResource("2_balas")
+
+[node name="Ground" type="TileMapLayer" parent="." unique_id=659873242]
+tile_set = ExtResource("7")
+script = ExtResource("6")
+camera_path = NodePath("../Player/Camera2D")
+door_scene = ExtResource("18_naw2d")
+
+[node name="Deco" type="Node2D" parent="." unique_id=948864152]
+
+[node name="BannerRed" type="Sprite2D" parent="Deco" unique_id=326246398]
+position = Vector2(632, 200)
+texture = ExtResource("12")
+
+[node name="BannerBlue" type="Sprite2D" parent="Deco" unique_id=639834927]
+position = Vector2(775, 199)
+texture = ExtResource("13")
+
+[node name="Crate1" type="Sprite2D" parent="Deco" unique_id=1382147285]
+position = Vector2(288, 232)
+texture = ExtResource("11")
+
+[node name="Crate2" type="Sprite2D" parent="Deco" unique_id=2101801383]
+position = Vector2(1120, 232)
+texture = ExtResource("11")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1097960655]
+position = Vector2(360, 360)
+script = ExtResource("1")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Player" unique_id=1964249295]
+sprite_frames = ExtResource("8")
+animation = &"run"
+autoplay = "idle"
+frame_progress = 0.30521056
+offset = Vector2(0, -2)
+
+[node name="Col" type="CollisionShape2D" parent="Player" unique_id=522878337]
+shape = SubResource("CircleShape2D_mj0fl")
+
+[node name="Mover" type="Node" parent="Player" unique_id=494918067]
+script = ExtResource("14")
+speed = 150.0
+save_id = "player"
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1352999060]
+zoom = Vector2(3, 3)
+
+[node name="HurtboxLite" type="Area2D" parent="Player" unique_id=630518631]
+collision_layer = 2
+script = ExtResource("15_y4mp7")
+health_path = NodePath("../HealthLite")
+metadata/_custom_type_script = "uid://crwdsiq68dr2b"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/HurtboxLite" unique_id=1932229371]
+shape = SubResource("CircleShape2D_qnaoe")
+
+[node name="HealthLite" type="Node" parent="Player" unique_id=270115265]
+script = ExtResource("12_mj0fl")
+max_health = 1.0
+metadata/_custom_type_script = "uid://ct3j4t4k1oeia"
+
+[node name="enemy" type="CharacterBody2D" parent="." unique_id=1215222659]
+position = Vector2(297, 361)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="enemy" unique_id=1019109926]
+sprite_frames = ExtResource("17_naw2d")
+animation = &"idle"
+frame_progress = 0.921248
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy" unique_id=649375855]
+position = Vector2(1, 2)
+shape = SubResource("CircleShape2D_naw2d")
+
+[node name="HitboxLite" type="Area2D" parent="enemy" unique_id=1252106672]
+position = Vector2(1, 2)
+collision_mask = 2
+script = ExtResource("20_26k6w")
+metadata/_custom_type_script = "uid://cwmbwhrjsti4v"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy/HitboxLite" unique_id=168052144]
+shape = SubResource("CircleShape2D_rqpb2")
+
+[node name="EnemyBrainLite" type="Node" parent="enemy" unique_id=682869345]
+script = ExtResource("18_mj0fl")
+move_speed = 70.0
+attack_radius = 15.0
+metadata/_custom_type_script = "uid://b57ilrp6gvpb4"
+
+[node name="PauseCanvas" type="CanvasLayer" parent="." unique_id=1149799931]
+
+[node name="Popup" parent="PauseCanvas" unique_id=1157778173 instance=ExtResource("19_mj0fl")]
+
+[node name="PauseMenu" parent="PauseCanvas" unique_id=828480521 instance=ExtResource("20_y4mp7")]
+visible = false
+
+[node name="HerbCounter" type="Label" parent="PauseCanvas" unique_id=462646593]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 100.0
+offset_bottom = 43.0
+theme_override_font_sizes/font_size = 24
+text = "Herbs: 0/3"
+
+[node name="LevelManager" type="Node" parent="." unique_id=1737381215]
+script = ExtResource("18_y4mp7")
+herb_scene = ExtResource("7_naw2d")
+ground_path = NodePath("../Ground")
+counter_path = NodePath("../PauseCanvas/HerbCounter")
+
+[connection signal="died" from="Player/HealthLite" to="Player" method="_on_health_lite_died"]

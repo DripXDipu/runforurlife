@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c6n0cjm5n5lh0"]
+
+[ext_resource type="Texture2D" uid="uid://8rk3p43fb114" path="res://game/art/Pixel Art Wooden Crate Sprite.png" id="1_tpclg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_11bub"]
+
+[node name="obstacle" type="StaticBody2D" unique_id=1450724777]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=363977463]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_tpclg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1208016688]
+shape = SubResource("RectangleShape2D_11bub")

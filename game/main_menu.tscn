@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dsy3rkdlel7n6"]
+
+[ext_resource type="Script" uid="uid://vlsmcxqp4kp" path="res://scripts/main_menu.gd" id="1_2ed8k"]
+[ext_resource type="Texture2D" uid="uid://bl7cwmvuhujc8" path="res://game/art/more-killer-halloween-party-ideas-featured.webp" id="1_20tr2"]
+[ext_resource type="FontFile" uid="uid://c3sbhqefqj728" path="res://Creepster-Regular.ttf" id="2_2ed8k"]
+[ext_resource type="AudioStream" uid="uid://c16shw3bt1maf" path="res://game/audio/mainmenu.mp3" id="2_wo36y"]
+[ext_resource type="Script" uid="uid://dthqryvvw4jps" path="res://game/settings_panel.gd" id="5_t606k"]
+
+[node name="MainMenu" type="Control" unique_id=1485367794]
+layout_mode = 3
+anchor_right = 0.83300006
+anchor_bottom = 0.92600006
+offset_right = 0.38391113
+offset_bottom = -0.048034668
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2ed8k")
+menu_music = ExtResource("2_wo36y")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=449337291]
+position = Vector2(479.5, 298.5)
+scale = Vector2(0.642, 0.593)
+texture = ExtResource("1_20tr2")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=271624735]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 159.93604
+offset_bottom = 44.447998
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=969303515]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1444996049]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.59000003, 0.59000003, 1)
+theme_override_fonts/font = ExtResource("2_2ed8k")
+theme_override_font_sizes/font_size = 48
+text = "RUN FOR UR LIFE"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer" unique_id=521790832]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47920653, 0.5308632, 0.5265586, 1)
+theme_override_font_sizes/font_size = 17
+text = "SURVIVE. ESCAPE. TRUST NOTHING."
+horizontal_alignment = 1
+
+[node name="Play" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1156194806]
+custom_minimum_size = Vector2(180, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.2904, 0.2904, 1)
+text = "PLAY"
+
+[node name="settings" type="Button" parent="CenterContainer/VBoxContainer" unique_id=870595736]
+custom_minimum_size = Vector2(180, 50)
+layout_mode = 2
+text = "SETTINGS"
+
+[node name="settingsPanel" type="PanelContainer" parent="CenterContainer/VBoxContainer" unique_id=638351445]
+layout_mode = 2
+script = ExtResource("5_t606k")
+
+[node name="Exit" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1618146835]
+custom_minimum_size = Vector2(180, 50)
+layout_mode = 2
+text = "QUIT"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

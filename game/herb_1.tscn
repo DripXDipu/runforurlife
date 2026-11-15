@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://clue78gjevnxv"]
+
+[ext_resource type="Script" uid="uid://bc6tp3hxclcah" path="res://game/herb.gd" id="1_lb3p1"]
+[ext_resource type="Texture2D" uid="uid://bk5wyl0jd0lmk" path="res://game/art/flask_big_green.png" id="2_fsgl2"]
+
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(18, 18)
+
+[node name="Herb1" type="Area2D" unique_id=2113866973]
+script = ExtResource("1_lb3p1")
+
+[node name="Body" type="Sprite2D" parent="." unique_id=843680326]
+texture = ExtResource("2_fsgl2")
+
+[node name="Col" type="CollisionShape2D" parent="." unique_id=392507851]
+shape = SubResource("3")

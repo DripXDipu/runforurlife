@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://btidvba4euvm8"]
+
+[ext_resource type="Script" uid="uid://qwidi5chkhbk" path="res://pause_menu.gd" id="1_gskg7"]
+[ext_resource type="FontFile" uid="uid://c1wvp4n8n3fm8" path="res://Creepster-Regular.ttf" id="2_oerl1"]
+
+[node name="PauseMenu" type="Control" unique_id=828480521]
+process_mode = 3
+z_index = 10
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gskg7")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=568951576]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=72907379]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1930327902]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=531278674]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_oerl1")
+theme_override_font_sizes/font_size = 48
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="Resume" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1542629294]
+layout_mode = 2
+text = "Resume"
+
+[node name="Restart" type="Button" parent="CenterContainer/VBoxContainer" unique_id=979676543]
+layout_mode = 2
+text = "Restart"
+
+[node name="Main Menu" type="Button" parent="CenterContainer/VBoxContainer" unique_id=562357277]
+process_mode = 3
+layout_mode = 2
+text = "Main menu
+"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
